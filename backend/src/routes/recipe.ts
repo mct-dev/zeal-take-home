@@ -13,12 +13,16 @@ export const recipeMiddleware = async (
   const { id } = req.params
   const { name, instructions, ingredients } = await RecipeModel.findById(id)
 
-  const cleanedIncredients = ingredients.map(i => i.name)
+  const cleanedIncredients = ingredients
+    .map((i) => i.name)
+    .reduce<string[]>((prev, curr) => {
+      return prev.includes(curr) ? prev : [...prev, curr]
+    }, [])
 
   const response: RecipeResponse = {
     name,
     instructions,
-    ingredients: cleanedIncredients
+    ingredients: cleanedIncredients,
   }
 
   res.json(response)

@@ -3,9 +3,12 @@ import BaseList from "@material-ui/core/List"
 import BaseListItem from "@material-ui/core/ListItem"
 
 export const List = styled(BaseList)`
+  min-height: 100px;
   max-height: 180px;
   overflow-y: scroll;
   box-shadow: 0px -8px 7px -9px #979292 inset;
+  border: 1px solid gray;
+  margin-top: 20px !important;
 `
 
 export const ListItem = styled(BaseListItem)`

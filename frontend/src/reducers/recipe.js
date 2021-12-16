@@ -1,7 +1,4 @@
-/*
-  TODO: Create reducer and state updates here for recipe
-*/
-import { SET_RECIPE_ID } from "../actions"
+import { GET_RECIPE, RECEIVE_RECIPE, FAIL_RECIPE } from "../actions"
 
 const initialState = {
   chosenRecipeId: null,
@@ -10,14 +7,26 @@ const initialState = {
   error: null,
 }
 
-const setChosenRecipeId = (state, payload) => {
-  return { ...state, chosenRecipeId: payload }
+const getRecipe = (state) => {
+  return { ...state, isLoading: true }
+}
+
+const recipeFetched = (state, payload) => {
+  return { ...state, isLoading: false, currentRecipe: payload }
+}
+
+const recipeFailed = (state, payload) => {
+  return { ...state, isLoading: false, error: payload }
 }
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-    case SET_RECIPE_ID:
-      return setChosenRecipeId(state, payload)
+    case GET_RECIPE:
+      return getRecipe(state)
+    case RECEIVE_RECIPE:
+      return recipeFetched(state, payload)
+    case FAIL_RECIPE:
+      return recipeFailed(state, payload)
     default:
       return state
   }

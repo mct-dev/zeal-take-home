@@ -1,13 +1,40 @@
-// TODO Create a connected component to render a fetched recipe
 import React, { Component } from "react"
 import { connect } from "react-redux"
+import Typography from "@material-ui/core/Typography"
+import Chip from "@material-ui/core/Chip"
+import CardContent from "@material-ui/core/CardContent"
 import * as actions from "../../actions"
+import { Root } from "./styles"
 
-const Recipe = (props) => {
-  console.log(props)
+const Recipe = ({ currentRecipe }) => {
+  if (!currentRecipe) {
+    return null
+  }
 
-  return <div>recipe</div>
+  return (
+    <Root variant="outlined" overflow="visible">
+      <CardContent>
+        <Typography variant="h5" gutterBottom>
+          {currentRecipe.name}
+        </Typography>
+        <Typography
+          style={{ margin: "20px 0" }}
+          variant="subtitle1"
+          gutterBottom
+        >
+          Ingredients:{" "}
+          {currentRecipe.ingredients.map((i) => (
+            <Chip style={{ marginRight: "5px" }} label={i} />
+          ))}
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          Instructions: {currentRecipe.instructions}
+        </Typography>
+      </CardContent>
+    </Root>
+  )
 }
+
 const mapStateToProps = (state) => {
   const { recipe } = state
   return { ...recipe }
@@ -16,7 +43,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
     {
-      setChosenRecipeId: actions.setRecipeId,
+      getRecipeById: actions.getRecipeById,
     },
     dispatch
   )

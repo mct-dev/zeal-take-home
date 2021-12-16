@@ -9,7 +9,9 @@ import Divider from "@material-ui/core/Divider"
 import Button from "@material-ui/core/Button"
 import LinearProgress from "@material-ui/core/LinearProgress"
 import ListItemText from "@material-ui/core/ListItemText"
+import Typography from '@material-ui/core/Typography';
 import * as actions from "../../actions"
+import Recipe from "../Recipe"
 
 const ingredientList = ["flour", "sugar", "salt", "butter", "milk"]
 
@@ -25,7 +27,8 @@ class Home extends Component {
     }
   }
   fetchSearch() {
-    this.props.searchRecipes()
+    const { term, ingredients } = this.state
+    this.props.searchRecipes(term, ingredients)
   }
   handleSearch(event) {
     const term = event.target.value
@@ -45,8 +48,6 @@ class Home extends Component {
     const { term, ingredients } = this.state
     const { recipes, isLoading } = this.props
 
-    console.log(this.props)
-
     return (
       <HomeWrapper>
         <Input
@@ -54,9 +55,12 @@ class Home extends Component {
           fullWidth={true}
           onChange={this.handleSearch}
           value={term}
+          placeholder="Enter search term..."
         />
-        <div>
-          <h3>Ingredients on hand</h3>
+        <div style={{ margin: '20px 0'}}>
+          <Typography variant="h4" gutterBottom>
+            Ingredients on hand
+          </Typography>
           {ingredientList.map((ingredient) => (
             <FormControlLabel
               key={ingredient}
@@ -71,25 +75,22 @@ class Home extends Component {
             />
           ))}
         </div>
-        <Button onClick={this.fetchSearch}>search</Button>
-        <Divider />
+        <Button variant="outlined" color="primary" onClick={this.fetchSearch}>search</Button>
+        {/* <Divider style={{ margin: '10px 0'}} /> */}
         {recipes && (
           <List>
             {recipes.map((recipe) => (
-              <ListItem key={recipe.id} onClick={() => this.props.setChosenRecipeId(recipe.id)}>
+              <ListItem
+                key={recipe.id}
+                onClick={() => this.props.getRecipeById(recipe.id)}
+              >
                 <ListItemText primary={recipe.name} />
               </ListItem>
             ))}
           </List>
         )}
         {isLoading && <LinearProgress />}
-        <Divider />
-        {/*
-          TODO: Add a recipe component here.
-          I'm expecting you to have it return null or a component based on the redux state, not passing any props from here
-          I want to see how you wire up a component with connect and build actions.
-        */}
-        Chosen recipe id: {this.props.chosenRecipeId}
+        <Recipe />
       </HomeWrapper>
     )
   }
@@ -104,7 +105,7 @@ const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
     {
       searchRecipes: actions.searchRecipes,
-      setChosenRecipeId: actions.setRecipeId,
+      getRecipeById: actions.getRecipeById,
     },
     dispatch
   )
