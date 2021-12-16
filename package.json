@@ -16,7 +16,7 @@
     "lint": "yarn workspaces foreach -ptv -j 2 run lint",
     "start": "yarn workspaces foreach -piv -j 2 run start",
     "cypress:open": "cypress open",
-    "test": "yarn run start && yarn run cypress"
+    "test": "yarn run cypress run"
   },
   "devDependencies": {
     "@babel/core": "7.14.8",

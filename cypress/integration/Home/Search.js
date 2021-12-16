@@ -16,6 +16,9 @@ context("Search feature", () => {
     })
   })
 
+  // This will fail most times because we're generating
+  // random strings for recipe names. But it's a good
+  // example of a test we would probably write.
   describe("Text filtering", () => {
     it("Should filter results by entered text", () => {
       cy.get('input[type="text"]').type("Glaze")
