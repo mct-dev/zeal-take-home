@@ -1,4 +1,3 @@
-// TODO: Create styled component styles if needed
 import styled from "styled-components"
 import Card from "@material-ui/core/Card"
 
