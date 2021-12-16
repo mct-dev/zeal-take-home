@@ -14,7 +14,9 @@
     "vsc": "sdks vscode",
     "build": "yarn workspaces foreach -piv --topological-dev -j 2 run build",
     "lint": "yarn workspaces foreach -ptv -j 2 run lint",
-    "start": "yarn workspaces foreach -piv -j 2 run start"
+    "start": "yarn workspaces foreach -piv -j 2 run start",
+    "cypress:open": "cypress open",
+    "test": "yarn run start && yarn run cypress"
   },
   "devDependencies": {
     "@babel/core": "7.14.8",
@@ -34,6 +36,7 @@
     "babel-loader": "8.2.2",
     "babel-plugin-named-asset-import": "0.3.7",
     "babel-preset-react-app": "9.1.2",
+    "cypress": "^9.1.1",
     "esbuild": "0.12.18",
     "esbuild-register": "2.6.0",
     "nodemon": "2.0.7",

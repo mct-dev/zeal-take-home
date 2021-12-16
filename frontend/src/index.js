@@ -8,10 +8,12 @@ import Home from "./Containers/Home"
 import reducers from "./reducers"
 import GlobalStyle from "./theme/globalStyles"
 
+const devToolsCompose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+
 const composeEnhancers =
-  process.env.NODE_ENV === "production"
-    ? compose
-    : window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  process.env.NODE_ENV !== "production"
+    ? devToolsCompose
+    : compose
 
 const store = createStore(
   reducers,

@@ -12,7 +12,7 @@ const Recipe = ({ currentRecipe }) => {
   }
 
   return (
-    <Root variant="outlined" overflow="visible">
+    <Root variant="outlined" overflow="visible" data-testid="recipe-card">
       <CardContent>
         <Typography variant="h5" gutterBottom>
           {currentRecipe.name}
